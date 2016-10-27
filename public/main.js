@@ -221,7 +221,14 @@ function onCreateAnswerSuccess(desc) {
 
 function onIceCandidate(pc, event) {
   if (event.candidate) {
-    socket.emit('msg', { pc:pc,by: userid, to: partnerid, ice: event.candidate, type: 'ice' });
+    var cand = {"candidate":{}};
+    console.log(event.candidate);
+     for(var prop in event.candidate){
+      if(typeof event.candidate[prop] !== 'function' && typeof event.candidate[prop] !== 'object'){
+        cand.candidate[prop] = event.candidate[prop];
+      }
+     }
+    socket.emit('msg', { pc:pc,by: userid, to: partnerid, ice: cand.candidate, type: 'ice' });
   }
 }
 
