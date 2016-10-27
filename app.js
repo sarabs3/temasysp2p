@@ -33,6 +33,7 @@ io.sockets.on('connect',function(socket){
 	});
 	socket.on('msg',function(data){
 		console.log('msg from: '+data.by+' msg to: '+data.to+' msg type: '+data.type);
+		console.log(data.ice);
 		io.sockets.connected['/#'+data.by].emit('msg',data);
 	})
 	socket.on('pc2',function(data){
